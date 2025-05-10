@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Sistemas Numéricos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8e6cf 0%, #d6eaff 50%, #e0bbf8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .converter-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #c0c0ff;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f0f8ff;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #8ec5fc;
+            background-color: #e6f7ff;
+        }
+
+        .input-group input::placeholder {
+            color: #aaa;
+        }
+
+        .footer {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <h1>Conversor de Sistemas Numéricos</h1>
+        <div class="input-group">
+            <label for="binary">Binario (Base 2)</label>
+            <input type="text" id="binary" placeholder="Ej: 1010">
+        </div>
+        <div class="input-group">
+            <label for="octal">Octal (Base 8)</label>
+            <input type="text" id="octal" placeholder="Ej: 12">
+        </div>
+        <div class="input-group">
+            <label for="decimal">Decimal (Base 10)</label>
+            <input type="number" id="decimal" placeholder="Ej: 10">
+        </div>
+        <div class="input-group">
+            <label for="hex">Hexadecimal (Base 16)</label>
+            <input type="text" id="hex" placeholder="Ej: A">
+        </div>
+        <div class="footer">Desarrollado por Prof. Felpe Martínez</div>
+    </div>
+
+    <script>
+        const binaryInput = document.getElementById('binary');
+        const octalInput = document.getElementById('octal');
+        const decimalInput = document.getElementById('decimal');
+        const hexInput = document.getElementById('hex');
+
+        function updateValues(value, type) {
+            try {
+                let decimalValue;
+                switch(type) {
+                    case 'binary':
+                        decimalValue = parseInt(value, 2);
+                        break;
+                    case 'octal':
+                        decimalValue = parseInt(value, 8);
+                        break;
+                    case 'decimal':
+                        decimalValue = parseInt(value);
+                        break;
+                    case 'hex':
+                        decimalValue = parseInt(value, 16);
+                        break;
+                }
+
+                if (isNaN(decimalValue)) {
+                    clearAllInputs();
+                    return;
+                }
+
+                binaryInput.value = decimalValue.toString(2);
+                octalInput.value = decimalValue.toString(8);
+                decimalInput.value = decimalValue.toString(10);
+                hexInput.value = decimalValue.toString(16).toUpperCase();
+            } catch (e) {
+                clearAllInputs();
+            }
+        }
+
+        function clearAllInputs() {
+            binaryInput.value = '';
+            octalInput.value = '';
+            decimalInput.value = '';
+            hexInput.value = '';
+        }
+
+        binaryInput.addEventListener('input', (e) => updateValues(e.target.value, 'binary'));
+        octalInput.addEventListener('input', (e) => updateValues(e.target.value, 'octal'));
+        decimalInput.addEventListener('input', (e) => updateValues(e.target.value, 'decimal'));
+        hexInput.addEventListener('input', (e) => updateValues(e.target.value, 'hex'));
+    </script>
+</body>
+</html>
